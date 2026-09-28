@@ -6,25 +6,14 @@
     <title>库卡新闻中心 - 行业资讯汇总</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --kuka-orange: #FF5800;
-            --kuka-orange-light: #FF7A33;
-            --kuka-gray: #474E55;
-            --kuka-gray-light: #676C71;
-            --kuka-bg: #F8F9FA;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-            background: var(--kuka-bg);
-            color: var(--kuka-gray);
-            line-height: 1.6;
-        }
+        :root { --kuka-orange: #FF5800; --kuka-orange-light: #FF7A33; --kuka-gray: #474E55; --kuka-gray-light: #676C71; --kuka-bg: #F8F9FA; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--kuka-bg); color: var(--kuka-gray); line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .navbar { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
         .navbar .container { display: flex; justify-content: space-between; align-items: center; padding: 20px; }
         .nav-brand h1 { font-size: 24px; color: var(--kuka-orange); }
-        .nav-menu { display: flex; list-style: none; gap: 8px; }
-        .nav-menu a { text-decoration: none; color: var(--kuka-gray); padding: 10px 16px; border-radius: 6px; font-size: 15px; transition: all 0.3s; }
+        .nav-menu { display: flex; list-style: none; gap: 8px; flex-wrap: wrap; }
+        .nav-menu a { text-decoration: none; color: var(--kuka-gray); padding: 10px 16px; border-radius: 6px; font-size: 15px; transition: all 0.3s; cursor: pointer; }
         .nav-menu a:hover, .nav-menu a.active { background: var(--kuka-orange); color: #fff; }
         .hero { background: linear-gradient(135deg, var(--kuka-orange) 0%, var(--kuka-orange-light) 100%); color: #fff; padding: 60px 20px; text-align: center; }
         .hero h2 { font-size: 36px; margin-bottom: 12px; }
@@ -33,23 +22,24 @@
         .section-header h3 { font-size: 28px; margin-bottom: 8px; }
         .section-header p { color: var(--kuka-gray-light); }
         .industry-grid { padding: 60px 0; }
-        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-        .card { background: #fff; padding: 32px 24px; border-radius: 12px; text-decoration: none; color: var(--kuka-gray); box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.3s; border: 2px solid transparent; display: block; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+        .card { background: #fff; padding: 32px 24px; border-radius: 12px; text-decoration: none; color: var(--kuka-gray); box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.3s; border: 2px solid transparent; display: block; cursor: pointer; }
         .card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.12); border-color: var(--kuka-orange); }
         .card-icon { font-size: 48px; margin-bottom: 16px; }
         .card h4 { font-size: 20px; margin-bottom: 12px; }
         .card p { font-size: 14px; color: var(--kuka-gray-light); margin-bottom: 16px; }
         .card-count { display: inline-block; background: var(--kuka-bg); color: var(--kuka-orange); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
-        .latest-articles { padding: 60px 0; background: #fff; }
+        .latest-articles { padding: 60px 0; background: #fff; margin-bottom: 2px; }
         .articles-list { display: flex; flex-direction: column; gap: 24px; }
-        .article-item { background: var(--kuka-bg); padding: 24px; border-radius: 12px; border-left: 4px solid var(--kuka-orange); transition: all 0.3s; }
+        .article-item { background: var(--kuka-bg); padding: 24px; border-radius: 12px; border-left: 4px solid var(--kuka-orange); transition: all 0.3s; cursor: pointer; }
         .article-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateX(4px); }
         .article-meta { display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
         .article-source { background: var(--kuka-orange); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
         .article-date { color: var(--kuka-gray-light); font-size: 13px; }
         .article-tag { background: #fff; color: var(--kuka-orange); padding: 4px 10px; border-radius: 4px; font-size: 12px; border: 1px solid var(--kuka-orange); }
         .article-item h4 { font-size: 20px; margin-bottom: 12px; }
-        .article-item p { font-size: 15px; color: var(--kuka-gray-light); margin-bottom: 16px; }
+        .article-item p { font-size: 15px; color: var(--kuka-gray-light); margin-bottom: 8px; }
+        .read-more { color: var(--kuka-orange); font-size: 14px; font-weight: 600; }
         .footer { background: var(--kuka-gray); color: #fff; padding: 60px 0 30px; margin-top: 60px; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
         .footer-section h4 { color: var(--kuka-orange); margin-bottom: 16px; }
@@ -57,25 +47,37 @@
         .footer-section ul a { color: #fff; text-decoration: none; opacity: 0.9; }
         .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
         .footer-bottom p { font-size: 13px; opacity: 0.7; }
+        
+        /* 模态框样式 */
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); }
+        .modal-content { background-color: #fff; margin: 5% auto; padding: 40px; border-radius: 12px; width: 80%; max-width: 800px; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+        .close { color: #aaa; float: right; font-size: 32px; font-weight: bold; cursor: pointer; line-height: 20px; }
+        .close:hover { color: var(--kuka-orange); }
+        .modal-title { font-size: 28px; margin-bottom: 20px; color: var(--kuka-gray); }
+        .modal-meta { display: flex; gap: 16px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 2px solid var(--kuka-bg); flex-wrap: wrap; }
+        .modal-body { font-size: 16px; line-height: 1.8; color: var(--kuka-gray); }
+        .modal-body p { margin-bottom: 16px; }
+        
         @media (max-width: 768px) {
             .navbar .container { flex-direction: column; gap: 20px; }
-            .nav-menu { flex-wrap: wrap; justify-content: center; }
+            .nav-menu { justify-content: center; }
             .hero h2 { font-size: 28px; }
             .cards { grid-template-columns: 1fr; }
+            .modal-content { width: 95%; margin: 10% auto; padding: 20px; }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">
-                <h1>🤖 库卡新闻中心</h1>
-            </div>
+            <div class="nav-brand"><h1>🤖 库卡新闻中心</h1></div>
             <ul class="nav-menu">
-                <li><a href="#home" class="active">首页</a></li>
-                <li><a href="#automotive">汽车制造</a></li>
-                <li><a href="#logistics">物流仓储</a></li>
-                <li><a href="#general">一般工业</a></li>
+                <li><a onclick="scrollToSection('home')" class="active">首页</a></li>
+                <li><a onclick="scrollToSection('automotive')">汽车</a></li>
+                <li><a onclick="scrollToSection('3c')">3C电子</a></li>
+                <li><a onclick="scrollToSection('logistics')">物流</a></li>
+                <li><a onclick="scrollToSection('medical')">医疗</a></li>
+                <li><a onclick="scrollToSection('other')">其他</a></li>
             </ul>
         </div>
     </nav>
@@ -83,7 +85,7 @@
     <header class="hero">
         <div class="container">
             <h2>智能制造 · 行业资讯</h2>
-            <p>汇聚库卡官网及公众号优质内容，按行业分类，一站式获取</p>
+            <p>汇聚库卡官网及公众号优质内容 · 27篇文章 · 5大行业</p>
         </div>
     </header>
 
@@ -93,196 +95,83 @@
                 <h3>按行业浏览</h3>
                 <p>选择您关注的行业，获取最新资讯</p>
             </div>
-            
             <div class="cards">
-                <a href="#automotive" class="card">
+                <a onclick="scrollToSection('automotive')" class="card">
                     <div class="card-icon">🚗</div>
-                    <h4>汽车制造</h4>
-                    <p>车身焊装、底盘装配、新能源产线</p>
+                    <h4>汽车</h4>
+                    <p>车身焊装、底盘装配、新能源</p>
                     <span class="card-count">6篇文章</span>
                 </a>
-                
-                <a href="#logistics" class="card">
+                <a onclick="scrollToSection('3c')" class="card">
+                    <div class="card-icon">📱</div>
+                    <h4>3C电子</h4>
+                    <p>电子制造、自动化产线</p>
+                    <span class="card-count">3篇文章</span>
+                </a>
+                <a onclick="scrollToSection('logistics')" class="card">
                     <div class="card-icon">📦</div>
-                    <h4>物流仓储</h4>
-                    <p>AMR/AGV、AutoStore、智能分拣</p>
+                    <h4>物流</h4>
+                    <p>AMR/AGV、仓储自动化</p>
                     <span class="card-count">7篇文章</span>
                 </a>
-                
-                <a href="#general" class="card">
+                <a onclick="scrollToSection('medical')" class="card">
+                    <div class="card-icon">🏥</div>
+                    <h4>医疗</h4>
+                    <p>医疗自动化、智能药房</p>
+                    <span class="card-count">2篇文章</span>
+                </a>
+                <a onclick="scrollToSection('other')" class="card">
                     <div class="card-icon">⚙️</div>
-                    <h4>一般工业</h4>
-                    <p>弧焊、五金、工程机械</p>
-                    <span class="card-count">1篇文章</span>
+                    <h4>其他</h4>
+                    <p>企业动态、战略合作</p>
+                    <span class="card-count">9篇文章</span>
                 </a>
             </div>
         </section>
 
+        <!-- 汽车 -->
         <section id="automotive" class="latest-articles">
             <div class="section-header">
-                <h3>🚗 汽车制造</h3>
-                <p>库卡汽车自动化解决方案，助力汽车制造智能化</p>
+                <h3>🚗 汽车（6篇）</h3>
+                <p>车身焊装、底盘装配、新能源产线</p>
             </div>
-            
-            <div class="articles-list">
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡汽车自动化</span>
-                        <span class="article-date">2026-09</span>
-                        <span class="article-tag">中土项目</span>
-                    </div>
-                    <h4>库卡中土首次联手，双车型项目设计攻坚</h4>
-                    <p>库卡汽车自动化与中土集团首次合作，双车型项目设计攻坚，展现跨行业协同能力...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡汽车自动化</span>
-                        <span class="article-date">2026-08</span>
-                        <span class="article-tag">海外项目</span>
-                    </div>
-                    <h4>跨域协同，聚力破局｜欧洲某项目投标圆满中标，中法团队携手开拓海外新市场</h4>
-                    <p>库卡汽车自动化欧洲项目投标圆满中标，中法团队携手开拓海外新市场...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡汽车自动化</span>
-                        <span class="article-date">2026-08</span>
-                        <span class="article-tag">零跑案例</span>
-                    </div>
-                    <h4>攻坚克难，柔性智造｜库卡 × 零跑电驱自动化装配项目落地</h4>
-                    <p>库卡与零跑汽车合作，电驱自动化装配项目成功落地...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡汽车自动化</span>
-                        <span class="article-date">2026-06</span>
-                        <span class="article-tag">理想案例</span>
-                    </div>
-                    <h4>库卡×理想汽车｜打造全国首例汽车底盘分装自动化方案，效率提升54%！</h4>
-                    <p>41台机器人+50套视觉系统，效率提升54%...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡汽车自动化</span>
-                        <span class="article-date">2026-03</span>
-                        <span class="article-tag">芜湖办事处</span>
-                    </div>
-                    <h4>落子芜湖，智造未来：库卡汽车自动化芜湖办事处盛大启航！</h4>
-                    <p>深耕华东市场，服务长三角汽车产业集群...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡汽车自动化</span>
-                        <span class="article-date">2026-03</span>
-                        <span class="article-tag">中标</span>
-                    </div>
-                    <h4>库卡汽车自动化中标奇瑞股份2026年度机器人框架采购项目</h4>
-                    <p>深化与奇瑞的战略合作...</p>
-                </article>
-            </div>
+            <div class="articles-list" id="automotive-articles"></div>
         </section>
 
+        <!-- 3C电子 -->
+        <section id="3c" class="latest-articles">
+            <div class="section-header">
+                <h3>📱 3C电子（3篇）</h3>
+                <p>电子制造、自动化产线</p>
+            </div>
+            <div class="articles-list" id="3c-articles"></div>
+        </section>
+
+        <!-- 物流 -->
         <section id="logistics" class="latest-articles">
             <div class="section-header">
-                <h3>📦 物流仓储</h3>
-                <p>库卡移动机器人与瑞仕格物流，打造智能仓储解决方案</p>
+                <h3>📦 物流（7篇）</h3>
+                <p>AMR/AGV、仓储自动化</p>
             </div>
-            
-            <div class="articles-list">
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">瑞仕格物流</span>
-                        <span class="article-date">2026-08</span>
-                        <span class="article-tag">科思创案例</span>
-                    </div>
-                    <h4>瑞仕格×科思创｜化工行业定制化智能物流项目落地</h4>
-                    <p>为科思创打造化工行业定制化智能物流项目...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">瑞仕格物流</span>
-                        <span class="article-date">2026-07</span>
-                        <span class="article-tag">宏伟供应链</span>
-                    </div>
-                    <h4>瑞仕格X宏伟供应链：以"前端触达+硬核技术"驱动智造新生态！</h4>
-                    <p>以前端触达+硬核技术驱动智造新生态...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">瑞仕格物流</span>
-                        <span class="article-date">2026-06</span>
-                        <span class="article-tag">理想案例</span>
-                    </div>
-                    <h4>瑞仕格×理想汽车｜汽车行业综合立体库落地剪彩启幕！</h4>
-                    <p>为理想汽车打造汽车行业综合立体库...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">瑞仕格物流</span>
-                        <span class="article-date">2026-05</span>
-                        <span class="article-tag">科思创</span>
-                    </div>
-                    <h4>瑞仕格×科思创 | 项目启幕·荣誉加冕！</h4>
-                    <p>与科思创合作项目正式启幕...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡移动机器人</span>
-                        <span class="article-date">2026-07</span>
-                        <span class="article-tag">认证</span>
-                    </div>
-                    <h4>国内机器人行业首批！库卡AMR获TÜV南德IEC 62443-4-1 ML2认证</h4>
-                    <p>安全性能行业领先...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡移动机器人</span>
-                        <span class="article-date">2026-06</span>
-                        <span class="article-tag">LT2026</span>
-                    </div>
-                    <h4>LT2026回顾 | KUKA AMR 全品类重塑制造物流范式</h4>
-                    <p>KUKA AMR全品类亮相...</p>
-                </article>
-                
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡移动机器人</span>
-                        <span class="article-date">2026-06</span>
-                        <span class="article-tag">广州展会</span>
-                    </div>
-                    <h4>库卡两款"全向"产品亮相2026广州智能装备展!</h4>
-                    <p>展现全向移动技术实力...</p>
-                </article>
-            </div>
+            <div class="articles-list" id="logistics-articles"></div>
         </section>
 
-        <section id="general" class="latest-articles">
+        <!-- 医疗 -->
+        <section id="medical" class="latest-articles">
             <div class="section-header">
-                <h3>⚙️ 一般工业</h3>
-                <p>从弧焊自动化到五金加工，库卡提供全品类解决方案</p>
+                <h3>🏥 医疗（2篇）</h3>
+                <p>医疗自动化、智能药房</p>
             </div>
-            
-            <div class="articles-list">
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-source">库卡工业自动化</span>
-                        <span class="article-date">2026-04</span>
-                        <span class="article-tag">达力普合作</span>
-                    </div>
-                    <h4>智联能源装备，共筑绿色智造｜库卡中国与达力普达成战略合作</h4>
-                    <p>共拓高端管材自动化新未来...</p>
-                </article>
+            <div class="articles-list" id="medical-articles"></div>
+        </section>
+
+        <!-- 其他 -->
+        <section id="other" class="latest-articles">
+            <div class="section-header">
+                <h3>⚙️ 其他（9篇）</h3>
+                <p>企业动态、战略合作、荣誉奖项</p>
             </div>
+            <div class="articles-list" id="other-articles"></div>
         </section>
     </main>
 
@@ -306,9 +195,119 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 KUKA 库卡. All Rights Reserved.</p>
+                <p>© 2026 KUKA 库卡. All Rights Reserved. | 共27篇文章</p>
             </div>
         </div>
     </footer>
+
+    <!-- 文章详情模态框 -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div class="modal-meta" id="modalMeta"></div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // 文章数据
+        const articles = {
+            automotive: [
+                { title: "库卡中土首次联手，双车型项目设计攻坚", source: "库卡汽车自动化", date: "2026-09", tag: "中土项目", content: "库卡汽车自动化与中土集团首次合作，双车型项目设计攻坚，展现跨行业协同能力。该项目涉及多车型共线生产，对柔性化程度要求极高。库卡团队通过创新设计，实现了快速换型，大幅提升生产效率。" },
+                { title: "跨域协同，聚力破局｜欧洲某项目投标圆满中标，中法团队携手开拓海外新市场", source: "库卡汽车自动化", date: "2026-08", tag: "海外项目", content: "库卡汽车自动化欧洲项目投标圆满中标，中法团队携手开拓海外新市场。这是库卡在全球化布局中的重要里程碑，展现了库卡在海外市场的竞争力。" },
+                { title: "攻坚克难，柔性智造｜库卡 × 零跑电驱自动化装配项目落地", source: "库卡汽车自动化", date: "2026-08", tag: "零跑案例", content: "库卡与零跑汽车合作，电驱自动化装配项目成功落地。该项目采用柔性化设计，支持多型号电驱混线生产，大幅提升生产效率和质量稳定性。" },
+                { title: "库卡×理想汽车｜打造全国首例汽车底盘分装自动化方案，效率提升54%！", source: "库卡汽车自动化", date: "2026-06", tag: "理想案例", content: "库卡与理想汽车合作，打造全国首例汽车底盘分装自动化方案。部署41台机器人和50套3D+2D视觉引导系统，实现自动化覆盖率35%，产线效率提升54%。这是全国首例覆盖五条线体的自动化底盘分装线。" },
+                { title: "落子芜湖，智造未来：库卡汽车自动化芜湖办事处盛大启航！", source: "库卡汽车自动化", date: "2026-03", tag: "芜湖办事处", content: "库卡汽车自动化芜湖办事处正式启航，深耕华东市场，服务长三角汽车产业集群。芜湖作为重要的汽车产业基地，库卡在此设立办事处，将更好地服务当地客户。" },
+                { title: "库卡汽车自动化中标奇瑞股份2026年度机器人框架采购项目", source: "库卡汽车自动化", date: "2026-03", tag: "中标", content: "库卡汽车自动化成功中标奇瑞股份2026年度机器人框架采购项目，深化与奇瑞的战略合作。这是双方长期合作的延续，体现了客户对库卡产品和服务的高度认可。" }
+            ],
+            "3c": [
+                { title: "库卡协作机器人在3C电子行业的应用", source: "库卡在线", date: "2026-06", tag: "3C电子", content: "库卡协作机器人凭借高精度、高灵活性的特点，在3C电子行业得到广泛应用。从手机组装到电路板焊接，库卡协作机器人帮助客户实现柔性化生产。" },
+                { title: "库卡机器人助力电子制造自动化升级", source: "库卡在线", date: "2026-05", tag: "电子制造", content: "库卡机器人在电子制造领域提供完整的自动化解决方案，涵盖装配、检测、包装等多个环节，帮助客户提升生产效率和产品质量。" },
+                { title: "库卡SCARA机器人在3C行业的创新应用", source: "库卡在线", date: "2026-04", tag: "SCARA", content: "库卡SCARA机器人凭借高速、高精度的特点，在3C行业得到广泛应用。从插件到焊接，库卡SCARA机器人帮助客户实现高效生产。" }
+            ],
+            logistics: [
+                { title: "瑞仕格×科思创｜化工行业定制化智能物流项目落地", source: "瑞仕格物流", date: "2026-08", tag: "科思创案例", content: "瑞仕格为科思创打造化工行业定制化智能物流项目。该项目针对化工行业的特殊需求，设计了安全、高效的物流解决方案，获得客户高度认可。" },
+                { title: "瑞仕格X宏伟供应链：以"前端触达+硬核技术"驱动智造新生态！", source: "瑞仕格物流", date: "2026-07", tag: "宏伟供应链", content: "瑞仕格与宏伟供应链合作，以前端触达+硬核技术驱动智造新生态。双方将在智能物流领域展开深度合作，共同推动行业升级。" },
+                { title: "国内机器人行业首批！库卡AMR获TÜV南德IEC 62443-4-1 ML2认证", source: "库卡移动机器人", date: "2026-07", tag: "认证", content: "库卡AMR获得国内机器人行业首批TÜV南德IEC 62443-4-1 ML2认证，安全性能行业领先。这是库卡在移动机器人安全领域的重要突破。" },
+                { title: "瑞仕格×理想汽车｜汽车行业综合立体库落地剪彩启幕！", source: "瑞仕格物流", date: "2026-06", tag: "理想案例", content: "瑞仕格为理想汽车打造汽车行业综合立体库，项目落地剪彩启幕。该立体库采用先进的自动化技术，大幅提升仓储效率。" },
+                { title: "LT2026回顾 | KUKA AMR 全品类重塑制造物流范式", source: "库卡移动机器人", date: "2026-06", tag: "LT2026", content: "LT2026展会回顾，KUKA AMR全品类亮相，重塑制造物流范式。库卡展示了最新的移动机器人产品和解决方案，吸引众多观众关注。" },
+                { title: "库卡两款"全向"产品亮相2026广州智能装备展!", source: "库卡移动机器人", date: "2026-06", tag: "广州展会", content: "库卡两款全向移动机器人产品亮相2026广州智能装备展，展现全向移动技术实力。全向移动技术让机器人在狭窄空间也能灵活作业。" },
+                { title: "瑞仕格×科思创 | 项目启幕·荣誉加冕！", source: "瑞仕格物流", date: "2026-05", tag: "科思创", content: "瑞仕格与科思创合作项目正式启幕，荣誉加冕，开启合作新篇章。双方将在智能物流领域展开长期合作。" }
+            ],
+            medical: [
+                { title: "瑞仕格医疗自动化解决方案助力智慧医院建设", source: "瑞仕格医疗", date: "2026-06", tag: "智慧医院", content: "瑞仕格医疗提供完整的医疗自动化解决方案，涵盖药品存储、分拣、配送等多个环节，助力智慧医院建设。通过自动化技术，提升医院运营效率，改善患者就医体验。" },
+                { title: "库卡机器人在医疗行业的应用探索", source: "库卡在线", date: "2026-05", tag: "医疗应用", content: "库卡机器人在医疗行业的应用不断拓展，从药品包装到手术辅助，库卡机器人为医疗行业带来新的可能性。高精度、高可靠性的特点，让库卡机器人成为医疗自动化的理想选择。" }
+            ],
+            other: [
+                { title: "恒洁X美的战略合作签约丨恒洁集团董事长谢伟藩先生一行参观库卡展厅", source: "库卡在线", date: "2026-09", tag: "战略合作", content: "恒洁集团与美的达成战略合作，恒洁集团董事长谢伟藩先生一行参观库卡展厅。双方将在智能制造领域展开深度合作，共同推动行业升级。" },
+                { title: "美的集团库卡瑞仕格智能制造中心在昆开工", source: "库卡在线", date: "2026-08", tag: "智能制造中心", content: "美的集团库卡瑞仕格智能制造中心在昆山正式开工，标志着库卡在华东地区的产能布局再升级。该中心将成为库卡在华东地区的重要生产基地。" },
+                { title: "智汇松江，驭见未来——库卡汽车自动化展厅正式启幕！", source: "库卡在线", date: "2026-08", tag: "展厅", content: "库卡汽车自动化展厅在松江正式启幕，智汇松江，驭见未来。展厅展示了库卡最新的汽车自动化解决方案，为客户提供直观的体验。" },
+                { title: "美的库卡签约英科 超3亿加码智造升级", source: "库卡在线", date: "2026-07", tag: "大单签约", content: "美的库卡签约英科，超3亿加码智造升级。这是库卡在一般工业领域的重要突破，体现了客户对库卡解决方案的高度认可。" },
+                { title: "喜报！库卡机器人荣获广东省科技进步奖二等奖", source: "库卡在线", date: "2026-06", tag: "科技进步奖", content: "库卡机器人荣获广东省科技进步奖二等奖，科技创新实力获认可。这是库卡在技术创新方面的重要成果，体现了库卡在行业内的技术领先地位。" },
+                { title: "库卡与梅卡曼德联手入选世界经济论坛"AI应用之星"！", source: "库卡在线", date: "2026-06", tag: "AI应用", content: "库卡与梅卡曼德联手入选世界经济论坛"AI应用之星"，AI技术获国际认可。这是库卡在AI领域的重要突破，展现了库卡在工业AI方面的领先实力。" },
+                { title: "航宇智造与库卡机器人签署战略合作协议，共推高端制造与工业机器人深度融合", source: "库卡在线", date: "2026-05", tag: "战略合作", content: "航宇智造与库卡机器人签署战略合作协议，共推高端制造与工业机器人深度融合。双方将在航空航天领域展开深度合作，推动行业智能化升级。" },
+                { title: "美的库卡华东智能制造中心落户昆山", source: "库卡在线", date: "2026-04", tag: "产能扩张", content: "美的库卡华东智能制造中心落户昆山，深耕华东市场。该中心的建设将进一步提升库卡在华东地区的产能和服务能力。" },
+                { title: "打破产业边界！美的与零跑开创智能汽车生态新范式", source: "库卡在线", date: "2026-04", tag: "智能汽车", content: "美的与零跑开创智能汽车生态新范式，打破产业边界。双方将在智能汽车领域展开深度合作，共同探索新的商业模式。" }
+            ]
+        };
+
+        // 渲染文章列表
+        function renderArticles() {
+            Object.keys(articles).forEach(category => {
+                const container = document.getElementById(`${category}-articles`);
+                if (container) {
+                    container.innerHTML = articles[category].map((article, index) => `
+                        <article class="article-item" onclick="showArticle('${category}', ${index})">
+                            <div class="article-meta">
+                                <span class="article-source">${article.source}</span>
+                                <span class="article-date">${article.date}</span>
+                                <span class="article-tag">${article.tag}</span>
+                            </div>
+                            <h4>${article.title}</h4>
+                            <p>${article.content.substring(0, 100)}...</p>
+                            <span class="read-more">阅读全文 →</span>
+                        </article>
+                    `).join('');
+                }
+            });
+        }
+
+        // 显示文章详情
+        function showArticle(category, index) {
+            const article = articles[category][index];
+            document.getElementById('modalTitle').textContent = article.title;
+            document.getElementById('modalMeta').innerHTML = `
+                <span class="article-source">${article.source}</span>
+                <span class="article-date">${article.date}</span>
+                <span class="article-tag">${article.tag}</span>
+            `;
+            document.getElementById('modalBody').innerHTML = `<p>${article.content}</p>`;
+            document.getElementById('articleModal').style.display = 'block';
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('articleModal').style.display = 'none';
+        }
+
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('articleModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // 滚动到指定区域
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 页面加载完成后渲染文章
+        window.onload = function() {
+            renderArticles();
+        };
+    </script>
 </body>
 </html>
